@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * Hello Process Module
+ *
+ * A starting point skeleton from which to build your own Process module. 
+ * Process modules are used primarily for building admin applications and tools.
+ * This module also creates a page in the ProcessWire admin to run itself from.
+ * 
+ * How to use this to make your own Process module:
+ *
+ * 1. Rename the ProcessHello.module file to be Process[YourModuleName].module
+ * 2. Change the class name to be Process[YourModuleName]
+ * 3. Change the "const pageName" line at the top of the class to be your unique admin page name.
+ * 4. Modify and add to this module to make it do what you want. 
+ * 5. If your module needs its own CSS and/or JS files, rename those included to be the same as 
+ *    your module name and modify them to do whatever you want. If your module does NOT need 
+ *    CSS and/or JS files then delete them. 
+ * 6. Change all the text here to describe your module and update the README.md file.
+ * 7. Change the copyright line directly below to have your information.
+ * 8. When ready, post your module to GitHub and to modules.processwire.com!
+ *
+ * Copyright [year] by [your name]
+ *
+ *
+ * ProcessWire 2.x 
+ * Copyright (C) 2012 by Ryan Cramer 
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://processwire.com
+ *
+ */
+
+class ProcessKoronaSettings extends Process implements ConfigurableModule  {
+
+	/**
+	 * Return information about this module (required)
+	 *
+	 */
+	public static function getModuleInfo() {
+		return array(
+			'title' => 'Korona Theme Settings', 
+			'summary' => 'Module to manage general settings.', 
+			'version' => 1,
+			'author' => 'Benjamin Milde', 
+			'href' => 'http://modules.processwire.com/', 
+			'permission' => 'page-edit', 
+			); 
+	}
+
+	public function init(){
+		$this->addHookAfter('Page::sortable', $this, 'hookPageSortable');
+    $this->addHookAfter('Page::deleteable', $this, 'hookPageDeleteable');
+    $this->addHookAfter('Page::addable', $this, 'hookPageAddable');
+	}
+
+	/**
+	 * Edit the Page of the given id.
+	 *
+	 */
+	public function execute(){
+		$_GET['id'] = $this->chosenPage;
+		$this->pages->get($this->chosenPage)->template->set("noSettings", 1);
+		$edit = $this->modules->ProcessPageEdit;
+		return $edit->execute();
+	}
+
+	public function hookPageSortable( HookEvent $event) {
+    $event->return = false;
+    return;
+	}
+
+	public function hookPageDeleteable( HookEvent $event) {
+    $event->return = false;
+    return;
+	}
+
+	public function hookPageAddable( HookEvent $event) {
+    $event->return = false;
+    return;
+	}
+
+	public static function getModuleConfigInputfields(array $data) {
+    $inputfields = new InputfieldWrapper(); 
+
+    $field = wire('modules')->get('InputfieldPageListSelect');
+    $field->name = 'chosenPage';
+    $field->label = "Choose a Page to display";
+    if(isset($data['chosenPage'])) $field->value = $data['chosenPage'];
+    $inputfields->add($field); 
+
+    return $inputfields; 
+  }
+	
+}
