@@ -31,7 +31,7 @@
  *
  */
 
-class ProcessKoronaSettings extends Process implements ConfigurableModule  {
+class ProcessAdminSettings extends Process implements ConfigurableModule  {
 
 	/**
 	 * Return information about this module (required)
@@ -39,11 +39,10 @@ class ProcessKoronaSettings extends Process implements ConfigurableModule  {
 	 */
 	public static function getModuleInfo() {
 		return array(
-			'title' => 'Korona Theme Settings', 
-			'summary' => 'Module to manage general settings.', 
+			'title' => 'Admin Settings', 
+			'summary' => 'Module to link the edit-part of a page to the admins main menu.', 
 			'version' => 1,
 			'author' => 'Benjamin Milde', 
-			'href' => 'http://modules.processwire.com/', 
 			'permission' => 'page-edit', 
 			); 
 	}
