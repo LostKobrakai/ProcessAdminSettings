@@ -31,7 +31,7 @@
  *
  */
 
-class ProcessKoronaSettings extends Process implements ConfigurableModule  {
+class ProcessAdminSettings extends Process implements ConfigurableModule  {
 
 	/**
 	 * Return information about this module (required)
@@ -39,7 +39,7 @@ class ProcessKoronaSettings extends Process implements ConfigurableModule  {
 	 */
 	public static function getModuleInfo() {
 		return array(
-			'title' => 'Korona Theme Settings', 
+			'title' => 'Admin Settings', 
 			'summary' => 'Module to manage general settings.', 
 			'version' => 1,
 			'author' => 'Benjamin Milde', 
